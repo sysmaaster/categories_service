@@ -6,8 +6,6 @@ import { WinstonErrorLogger, WinstonLogger } from "./services/winston-logger";
 
 const app = express();
 
-app.use(WinstonLogger);
-
 app.use(
   cors({
     origin: "*",
@@ -23,5 +21,4 @@ app.use(bodyParser.json()); // parse form data client
 /** Routes  */
 app.use(router());
 
-app.use(WinstonErrorLogger);
 export default app;
