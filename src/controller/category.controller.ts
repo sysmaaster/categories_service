@@ -27,7 +27,7 @@ class CategoriesController {
   }
 
   async getFromId(
-    req: RequestWithParams<string>,
+    req: RequestWithParams<{id:string}>,
     res: Response<CategoriesResponseModel | {}>,
     next: NextFunction
   ) {
@@ -37,7 +37,7 @@ class CategoriesController {
         res.sendStatus(HTTP_Status.BAD_REQUEST_400);
         return;
       }
-      found = await categoriesService.getById(req.params[0]);
+      found = await categoriesService.getById(req.params.id);
       if (found) {
         res.status(HTTP_Status.OK_200).json(found);
       } else res.sendStatus(HTTP_Status.BAD_REQUEST_400);
@@ -64,12 +64,13 @@ class CategoriesController {
     }
   }
   async update(
-    req: RequestWithBody<CategoriesEditRequestModel>,
+    req: {body:CategoriesEditRequestModel, params: { id: string; }; },
     res: Response<CategoriesResponseModel | {}>,
     next: NextFunction
   ) {
     try {
-      const upd = await categoriesService.update(req.body);
+      const id = req.params.id
+      const upd = await categoriesService.update(req.body, id);
       if (upd) {
         res.status(HTTP_Status.CREATED_201).json(upd);
       } else res.sendStatus(HTTP_Status.BAD_REQUEST_400);
@@ -80,13 +81,13 @@ class CategoriesController {
   }
 
   async delet(
-    req: RequestWithParams<string>,
+    req: RequestWithParams<{id:string}>,
     res: Response<{}>,
     next: NextFunction
   ) {
     try {
       let foundcatg;
-      foundcatg = await categoriesService.delete(req.params[0]);
+      foundcatg = await categoriesService.delete(req.params.id);
       if (foundcatg) {
         res.sendStatus(HTTP_Status.OK_200);
       } else res.sendStatus(HTTP_Status.BAD_REQUEST_400);

@@ -8,9 +8,7 @@ import getCrypto from "../utils/crypto.gen";
 
 class CategoriesRepositry {
   async getAll() {
-    const metricsLabels = {
-      operation: "ShowAll Categories",
-    };
+    
     
     try {
       const result = await db.find({});
@@ -26,9 +24,7 @@ class CategoriesRepositry {
   }
 
   async getById(input: string) {
-    const metricsLabels = {
-      operation: "GetCategoriesById",
-    };
+    
     
     try {
       let filter;
@@ -47,9 +43,7 @@ class CategoriesRepositry {
   }
 
   async Create(input: CategoriesCreateModel) {
-    const metricsLabels = {
-      operation: "create categories",
-    };
+    
     
     try {
       let filter;
@@ -67,17 +61,15 @@ class CategoriesRepositry {
     }
   }
 
-  async Update(upd: CategoriesEditRequestModel) {
-    const metricsLabels = {
-      operation: "Update categories",
-    };
+  async Update(upd: CategoriesEditRequestModel,id:string) {
+   
     
     try {
       let filter;
       const udp_data = {
         name: upd.name,
       };
-      const result = await db.findOneAndUpdate({ id: upd.id }, udp_data, {
+      const result = await db.findOneAndUpdate({ id }, udp_data, {
         new: true,
       });
       if (result) filter = { id: result.id, name: result.name };
@@ -90,9 +82,7 @@ class CategoriesRepositry {
   }
 
   async Delete(id: string) {
-    const metricsLabels = {
-      operation: "Delete categories",
-    };
+    
     
     try {
       const result = await db.findOneAndDelete({ id });

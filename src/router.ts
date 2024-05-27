@@ -3,7 +3,7 @@ import CategoryController from "./controller/category.controller";
 
 const Router = () => {
   const router = express.Router();
-  router.get("/:id", CategoryController.getAll);
+  router.get("/:id", CategoryController.getFromId);
   router.put("/:id", CategoryController.update);
   router.delete("/:id", CategoryController.delet);
   router.get("/", CategoryController.getAll);
